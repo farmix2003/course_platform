@@ -18,6 +18,7 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseMapper mapper;
+    private final TelegramService telegramService;
 
     @Transactional(readOnly = true)
     public List<CourseResponse> findAllCourses() {
@@ -43,6 +44,18 @@ public class CourseService {
                 .build();
 
         Course savedCourse = courseRepository.save(course);
+
+        telegramService.sendMessage("""
+            📚 New course created
+
+            ID: %d
+            Title: %s
+            Price: %s
+            """.formatted(
+                savedCourse.getId(),
+                savedCourse.getTitle(),
+                savedCourse.getPrice()
+        ));
 
         return mapper.toResponse(savedCourse);
     }

@@ -29,6 +29,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final TelegramService telegramService;
 
     @Transactional
     public RegisterResponse registerUser(RegisterRequest request){
@@ -48,6 +49,19 @@ public class AuthService {
                 .build();
 
         User savedUser = userRepository.save(user);
+
+        telegramService.sendMessage("""
+           ✅ New user registered
+
+           Name: %s %s
+           Email: %s
+           Role: %s
+          """.formatted(
+                        savedUser.getFirstName(),
+                        savedUser.getLastName(),
+                        savedUser.getEmail(),
+                        savedUser.getUserRole()
+        ));
 
         String accessToken = jwtService.generateToken(new UserPrincipal(savedUser));
 
