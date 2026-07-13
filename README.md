@@ -242,6 +242,12 @@ npm run build
 | `/courses/:id` | Course details |
 | `/admin/courses` | Admin course dashboard |
 
+##Example Admin credentials
+
+-email: admin@gmail.com
+-password: password123
+
 ## License
 
 This project was created as a technical assignment and learning project.
+
