@@ -26,6 +26,6 @@ jwt:
 
 telegram:
   bot:
-    enabled: ${TELEGRAM_BOT_ENABLED}
-    token: ${TELEGRAM_BOT_TOKEN}
-    chat-id: ${TELEGRAM_CHAT_ID}
+    enabled: ${TELEGRAM_BOT_ENABLED:false}
+    token: ${TELEGRAM_BOT_TOKEN:}
+    chat-id: ${TELEGRAM_CHAT_ID:}
